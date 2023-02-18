@@ -1,9 +1,12 @@
-import { Box, Button, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Spinner } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Container } from "../components/Container";
 import { Form } from "../components/Form";
 import { Header } from "../components/Header";
 import { openai } from "../lib/openAi";
+import "prismjs/themes/prism-okaidia.css";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function GenerateText() {
   const [query, setQuery] = useState<string>("");
@@ -75,7 +78,17 @@ function GenerateText() {
             </Box>
           </Box>
           <Box margin={"auto"} width="fit-content">
-            <Text>{data as string}</Text>
+            {(data as string) && (
+              <SyntaxHighlighter
+                showInlineLineNumbers
+                wrapLongLines
+                wrapLines
+                language="javascript"
+                style={oneLight}
+              >
+                {data as string}
+              </SyntaxHighlighter>
+            )}
           </Box>
         </Container>
       </main>
